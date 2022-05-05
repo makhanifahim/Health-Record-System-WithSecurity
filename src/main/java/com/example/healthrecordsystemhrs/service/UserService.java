@@ -9,9 +9,6 @@ public interface UserService {
     User saveUser(User user);
     User updateUser(User user,long id);
 
-    //Starting --Fahim
-    //Registration
-
     User getUserById(long id);
     User userDetailByName(String uName);
     //Ending
