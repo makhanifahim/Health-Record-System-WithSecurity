@@ -8,7 +8,9 @@ import com.hrs.hrsystem.repository.DocumentsRepo;
 import com.hrs.hrsystem.service.DocumentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -16,8 +18,13 @@ public class DocumentsServiceImpl implements DocumentsService {
     @Autowired
     private DocumentsRepo documentsRepo;
 
+    @Autowired
+    private FileUploadService fileUploadService;
+
     @Override
-    public Documents saveDocuments(Documents documents) {
+    public Documents saveDocuments(Documents documents,MultipartFile file) throws IOException {
+        String path=fileUploadService.uploadFile(file);
+        documents.setDocument("C:\\soft\\"+path);
         return documentsRepo.save(documents);
     }
 

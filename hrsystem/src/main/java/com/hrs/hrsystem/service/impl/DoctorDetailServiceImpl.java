@@ -3,10 +3,15 @@ package com.hrs.hrsystem.service.impl;
 
 import com.hrs.hrsystem.exception.ResourceNotFoundException;
 import com.hrs.hrsystem.model.DoctorDetail;
+import com.hrs.hrsystem.model.InsuranceDetail;
+import com.hrs.hrsystem.model.Report;
 import com.hrs.hrsystem.repository.DoctorDetailRepo;
 import com.hrs.hrsystem.service.DoctorDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DoctorDetailServiceImpl implements DoctorDetailService {
@@ -33,6 +38,8 @@ public class DoctorDetailServiceImpl implements DoctorDetailService {
             doctorDetailRepo.save(existingUser);
             return existingUser;
     }
-
-
+    public List<DoctorDetail> getAlldoctors(){
+        List<DoctorDetail> doctorDetail = new ArrayList<DoctorDetail>();
+        return doctorDetailRepo.findAll();
+    }
 }

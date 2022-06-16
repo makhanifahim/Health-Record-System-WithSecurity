@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/doctor")
 public class DoctorController {
@@ -30,6 +32,11 @@ public class DoctorController {
     @GetMapping("/byName/{uName}")
     public ResponseEntity<DoctorDetail> doctorDetailByName(@PathVariable String uName){
         return new ResponseEntity<DoctorDetail>(doctorDetailServiceImpl.DoctorDetailByUserName(uName),HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DoctorDetail>> getallDoctor(){
+        return new ResponseEntity<List<DoctorDetail>>(doctorDetailServiceImpl.getAlldoctors(),HttpStatus.OK);
     }
 
     //Update DoctorDetail

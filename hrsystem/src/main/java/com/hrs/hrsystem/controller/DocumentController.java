@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -18,9 +20,9 @@ public class DocumentController {
     private DocumentsServiceImpl documentsService;
 
     //Adding new Document
-    @PostMapping
-    public ResponseEntity<Documents> saveDocuments(@RequestBody Documents documents){
-        return new ResponseEntity<Documents> (documentsService.saveDocuments(documents), HttpStatus.CREATED);
+    @PostMapping(path = "/",consumes = "multipart/form-data")
+    public ResponseEntity<Documents> saveDocuments(@ModelAttribute Documents documents,@RequestParam("file") MultipartFile file) throws IOException {
+        return new ResponseEntity<Documents> (documentsService.saveDocuments(documents,file), HttpStatus.CREATED);
     }
 
     //Updating Old Document ById

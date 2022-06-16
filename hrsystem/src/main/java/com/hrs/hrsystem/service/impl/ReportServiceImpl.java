@@ -3,11 +3,14 @@ package com.hrs.hrsystem.service.impl;
 
 import com.hrs.hrsystem.exception.ResourceNotFoundException;
 import com.hrs.hrsystem.model.Report;
+import com.hrs.hrsystem.model.User;
 import com.hrs.hrsystem.repository.ReportRepo;
 import com.hrs.hrsystem.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -15,8 +18,13 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private ReportRepo reportRepo;
 
+    @Autowired
+    private FileUploadService fileUploadService;
+
     @Override
-    public Report saveReport(Report report) {
+    public Report saveReport(Report report, MultipartFile file) throws IOException {
+        String path=fileUploadService.uploadFile(file);
+        report.setReportDocument("C:\\soft\\"+path);
         return reportRepo.save(report);
     }
 
