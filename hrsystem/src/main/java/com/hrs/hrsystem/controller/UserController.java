@@ -8,7 +8,6 @@ import com.hrs.hrsystem.repository.UserRepo;
 import com.hrs.hrsystem.response.Response;
 import com.hrs.hrsystem.service.*;
 import com.hrs.hrsystem.service.impl.UserServiceImpl;
-import com.hrs.hrsystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,6 @@ public class UserController {
     private UserRepo userRepo;
     @Autowired
     private UserServiceImpl userServiceImpl;
-
     @Autowired
     private UserService userService;
     @Autowired

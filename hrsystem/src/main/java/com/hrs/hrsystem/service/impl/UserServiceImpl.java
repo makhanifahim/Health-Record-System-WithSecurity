@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
         Credential credential=user.getCredential();
         credential.setPassWord(passwordEncoder.encode(credential.getPassWord()));
         user.setCredential(credential);
-        username=user.getPerson().getFirstName();
+        username=user.getPerson().getEmail();
         return userRepo.save(user);
     }
 
@@ -53,6 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void getUser() {
         long uuid=userRepo.findId(username);
+        System.out.println(uuid);
         userRepo.updatestatus(uuid);
     }
 }

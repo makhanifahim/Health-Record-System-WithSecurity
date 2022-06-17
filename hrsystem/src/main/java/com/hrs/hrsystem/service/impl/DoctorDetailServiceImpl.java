@@ -2,12 +2,14 @@ package com.hrs.hrsystem.service.impl;
 
 
 import com.hrs.hrsystem.exception.ResourceNotFoundException;
+import com.hrs.hrsystem.model.Credential;
 import com.hrs.hrsystem.model.DoctorDetail;
 import com.hrs.hrsystem.model.InsuranceDetail;
 import com.hrs.hrsystem.model.Report;
 import com.hrs.hrsystem.repository.DoctorDetailRepo;
 import com.hrs.hrsystem.service.DoctorDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,9 +19,13 @@ import java.util.List;
 public class DoctorDetailServiceImpl implements DoctorDetailService {
     @Autowired
     private DoctorDetailRepo doctorDetailRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public DoctorDetail saveDoctorDetail(DoctorDetail doctorDetail) {
+        Credential credential=doctorDetail.getCredential();
+        credential.setPassWord(passwordEncoder.encode(credential.getPassWord()));
         return doctorDetailRepo.save(doctorDetail);
     }
 

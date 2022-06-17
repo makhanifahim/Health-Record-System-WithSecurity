@@ -12,7 +12,7 @@ public interface UserRepo extends JpaRepository<User,Long> {
     @Query("select user from User user where user.credential.userName=:uName")
     public User userDetailByName(String uName);
 
-    @Query("select user.person.personId from User user where user.person.firstName=:uName")
+    @Query("select user.person.personId from User user where user.person.email=:uName")
     public long findId(String uName);
 
     @Transactional
