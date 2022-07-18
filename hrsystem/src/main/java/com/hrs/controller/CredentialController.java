@@ -1,5 +1,6 @@
 package com.hrs.controller;
 
+import com.hrs.EmailSenderService;
 import com.hrs.model.Credential;
 import com.hrs.service.impl.CredentialServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +12,33 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/credential")
 public class CredentialController {
+    int GeneratedOTP;
     @Autowired
     private CredentialServiceImpl credentialService;
+
+    @Autowired
+    private EmailSenderService service;
 
 
     @PutMapping("/{id}")
     public ResponseEntity<Credential> updateCredential(@RequestBody Credential credential, @PathVariable long id){
         return new ResponseEntity<Credential>(credentialService.updateCredential(credential,id), HttpStatus.OK);
     }
-
-    @PutMapping("/userName/{uName}")
-    public ResponseEntity<Credential> updateCredentialByUserName(@RequestBody Credential credential,@PathVariable String uName){
-        return new ResponseEntity<Credential>(credentialService.updateCredentialByUserName(credential,uName),HttpStatus.OK);
+    @PostMapping("/OTP/{uName}")
+    public void OTP(@PathVariable String uName){
+        GeneratedOTP=(int) (Math.random()*(100000-157)+110)+130;
+        service.sendSimpleEmail(uName,Integer.toString(GeneratedOTP),"OTP from Health Record System ");
+        System.out.println(GeneratedOTP);
+    }
+    @PutMapping("/reset/{uName}/{OTPS}")
+    public int updateCredentialByUserName(@RequestBody Credential credential,@PathVariable String uName,@PathVariable int OTPS){
+        if (OTPS==GeneratedOTP){
+            credentialService.updateCredentialByUserName(credential,uName);
+            return 1;
+        }
+        else{
+            return 0;
+        }
     }
     @PostMapping({"/createNewRole"})
     public Credential createNewRole(@RequestBody Credential credential){

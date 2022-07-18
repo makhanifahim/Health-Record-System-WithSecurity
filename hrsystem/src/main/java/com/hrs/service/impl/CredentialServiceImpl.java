@@ -5,12 +5,16 @@ import com.hrs.model.Credential;
 import com.hrs.repository.CredentialRepo;
 import com.hrs.service.CredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CredentialServiceImpl implements CredentialService {
     @Autowired
     private CredentialRepo credentialRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Credential saveCredential(Credential credential) {
@@ -35,7 +39,7 @@ public class CredentialServiceImpl implements CredentialService {
     public Credential updateCredentialByUserName(Credential credential, String uName) {
         long id = (long) credentialRepo.idByUserName(uName);
         Credential existingcredential = credentialRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Credential","id",id));
-        existingcredential.setPassWord(credential.getPassWord());
+        existingcredential.setPassWord(passwordEncoder.encode(credential.getPassWord()));
         credentialRepo.save(existingcredential);
         return existingcredential;
     }

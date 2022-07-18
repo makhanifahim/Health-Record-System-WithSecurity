@@ -1,5 +1,6 @@
 package com.hrs.controller;
 
+import com.hrs.EmailSenderService;
 import com.hrs.model.FeedBack;
 import com.hrs.service.impl.FeedBackServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class FeedBackController {
     @Autowired
     private FeedBackServiceImpl feedBackService;
+
+    @Autowired
+    private EmailSenderService service;
 
     @PostMapping
     public ResponseEntity<FeedBack> saveFeedBack(@RequestBody FeedBack feedBack){

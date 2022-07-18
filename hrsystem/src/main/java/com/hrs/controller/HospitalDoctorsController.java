@@ -22,7 +22,6 @@ public class HospitalDoctorsController {
         return new ResponseEntity<HospitalDoctor>(hospitalDoctorService.saveHospitalDoctor(hospitalDoctor), HttpStatus.CREATED);
     }
 
-
     @GetMapping("/byHospital/{id}")
     public ResponseEntity<List<DoctorDetail>> listAllDoctorsInHospital(@PathVariable long id){
         return new ResponseEntity<List<DoctorDetail>>(hospitalDoctorService.listAllDoctorsInHospital(id),HttpStatus.OK);
