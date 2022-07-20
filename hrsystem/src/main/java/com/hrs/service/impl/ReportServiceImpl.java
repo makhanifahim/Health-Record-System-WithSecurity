@@ -22,7 +22,7 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public Report saveReport(Report report, MultipartFile file) throws IOException {
         String path=fileUploadService.uploadFile(file);
-        report.setReportDocument("C:\\soft\\"+path);
+        report.setReportDocument(path);
         return reportRepo.save(report);
     }
 

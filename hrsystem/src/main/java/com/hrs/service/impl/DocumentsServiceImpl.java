@@ -24,7 +24,7 @@ public class DocumentsServiceImpl implements DocumentsService {
     @Override
     public Documents saveDocuments(Documents documents, MultipartFile file) throws IOException {
         String path=fileUploadService.uploadFile(file);
-        documents.setDocument("C:\\soft\\"+path);
+        documents.setDocument(path);
         return documentsRepo.save(documents);
     }
 
